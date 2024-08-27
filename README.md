@@ -52,14 +52,34 @@ Before deploying, you need to authorize a Salesforce org (e.g., sandbox or produ
 
 After you've authorized your org, you can deploy the code to your Salesforce org.
 
-1. **To deploy to the staging sandbox**:
+#### 1. **To deploy to the staging sandbox**:
+
+```bash
+sfdx project deploy start --source-dir force-app --target-org staging
+```
+
+#### 2. **To deploy to the production org using Metadata API**:
+
+When deploying to production, ensure that you convert the source format to metadata format, and only run the relevant test class for deployment:
+
+1. **Convert the source format to metadata format**:
+
    ```bash
-   sfdx project deploy start --source-dir force-app --target-org staging
+   sfdx force:source:convert --rootdir force-app --outputdir mdapi_output_dir
    ```
 
-2. **To deploy to the production org**:
+2. **Deploy the converted metadata to production and only run the required test class**:
+
    ```bash
-   sfdx project deploy start --source-dir force-app --target-org production
+   sfdx force:mdapi:deploy --deploydir mdapi_output_dir --targetusername production --testlevel RunSpecifiedTests --runtests CancelSubscriptionControllerTest
+   ```
+
+3. **Monitor the deployment**:
+
+   You can monitor the status of your deployment using:
+
+   ```bash
+   sfdx force:mdapi:deploy:report --targetusername production
    ```
 
 ### Testing the Component
