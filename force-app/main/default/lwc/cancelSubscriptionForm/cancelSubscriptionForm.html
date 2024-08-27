@@ -1,0 +1,54 @@
+<template>
+  <!-- Form visible only if not submitted and language is "de" -->
+  <template if:false={isSubmitted}>
+      <template if:true={showForm}>
+          <lightning-card title="Abonnement kündigen" icon-name="standard:case">
+              <div class="slds-p-horizontal_medium">
+                  <!-- Email field -->
+                  <lightning-input label="Emailadresse" value={email} onchange={handleInputChange} data-id="email" type="email" required></lightning-input>
+                  
+                  <!-- Order number field -->
+                  <lightning-input label="Bestellnummer" value={bestellnummer} onchange={handleInputChange} data-id="bestellnummer"></lightning-input>
+                  
+                  <!-- Desired termination date dropdown -->
+                  <lightning-combobox label="Gewünschtes Kündigungsdatum" value={kuendigungsdatum} placeholder="Bitte wählen" 
+                                      options={kuendigungsdatumOptions} onchange={handleInputChange} data-id="kuendigungsdatum" required>
+                  </lightning-combobox>
+                  
+                  <!-- Reason for termination dropdown -->
+                  <lightning-combobox label="Kündigungsgrund" value={kuendigungsgrund} placeholder="Bitte wählen" 
+                                      options={kuendigungsgrundOptions} onchange={handleInputChange} data-id="kuendigungsgrund" required>
+                  </lightning-combobox>
+                  
+                  <!-- Other reason textarea (conditional) -->
+                  <template if:true={showSonstigerGrund}>
+                      <lightning-textarea label="Sonstiger Kündigungsgrund" value={sonstigerGrund} onchange={handleInputChange} data-id="sonstigerGrund"></lightning-textarea>
+                  </template>
+              </div>
+
+              <!-- Loading spinner (visible when isLoading is true) -->
+              <template if:true={isLoading}>
+                  <lightning-spinner alternative-text="Laden" size="medium"></lightning-spinner>
+              </template>
+              
+              <div class="slds-m-top_medium slds-p-horizontal_medium">
+                  <!-- Submit button (disabled when isLoading is true) -->
+                  <lightning-button label="Senden" onclick={handleSubmit} disabled={isLoading}></lightning-button>
+              </div>
+          </lightning-card>
+      </template>
+  </template>
+  
+  <!-- Success message after case submission -->
+    <template if:true={isSubmitted}>
+      <div class="slds-box slds-box_x-small success-message">
+          <p class="slds-text-color_success">Ihre Anfrage wurde erfolgreich gesendet.</p>
+          <p>Referenznummer: {caseNumber}</p>
+      </div>
+  </template>
+
+  <!-- This is shown when the language is not "de" -->
+  <template if:false={showForm}>
+      <p>---</p>
+  </template>
+</template>

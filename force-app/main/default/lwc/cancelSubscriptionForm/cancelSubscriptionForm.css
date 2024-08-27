@@ -1,0 +1,13 @@
+.success-message {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.success-message p {
+  margin: 0;
+}
+
+.success-message .slds-text-color_success {
+  color: darkgreen;
+}

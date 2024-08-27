@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <isExposed>true</isExposed> <!-- Set this to true so the component can be used -->
+    <targets>
+        <!-- Include the targets where you want the component to be used -->
+        <target>lightningCommunity__Page</target> <!-- For Experience Cloud (formerly Communities) pages -->
+        <target>lightningCommunity__Default</target>
+        <target>lightning__AppPage</target> <!-- For Lightning App Pages -->
+        <target>lightning__RecordPage</target> <!-- For Lightning Record Pages -->
+        <target>lightning__HomePage</target> <!-- For Lightning Home Pages -->
+    </targets>
+</LightningComponentBundle>
